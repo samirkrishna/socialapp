@@ -1,0 +1,297 @@
+openapi: 3.0.0
+info:
+  title: Social App
+  description: Social App to get followers
+  version: 1.0.0
+
+# servers:
+#   - url: http://localhost:4000/api/v1
+#     description: Optional server description, e.g. Main (production) server
+#   - url: http://staging-api.example.com
+#     description: Optional server description, e.g. Internal staging server for testing
+
+servers:
+  - url: "{protocol}://localhost:4000/api/{version}"
+    description: Optional server description, e.g. Main (production) server
+    variables:
+      version:
+        default: v1
+        enum:
+         - v1
+         - v2
+      protocol:
+        default: http
+        enum:
+          - "http"
+          - "https"
+
+components:
+  securitySchemes:
+    cookie: 
+      name: My Auth
+      type: apiKey
+      in: cookie
+    BearerAuth:
+      type: http
+      scheme: bearer
+
+
+
+# components:
+#   securitySchemes:
+#     BasicAuth:
+#       type: http
+#       scheme: basic
+#     BearerAuth:
+#       type: http
+#       scheme: bearer
+paths:
+  /instagram:
+    get:
+      summary: returns username, follows and followers
+      tags:
+        - "Social App"
+      responses:
+        '200':
+          description: returns an object
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    type: string
+                  followers:
+                    type: string
+                  follows:
+                    type: string
+    post:
+      summary: returns username, follows and followers
+      tags:
+        - "Social App"
+      responses:
+        '200':
+          description: returns an object
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    type: string
+                  followers:
+                    type: string
+                  follows:
+                    type: string
+        '404':
+          description: returns an object
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /facebook:
+    get:
+      summary: returns username, follows and followers
+      tags:
+        - "Social App"
+      responses:
+        '200':
+          description: returns an object
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    type: string
+                  followers:
+                    type: string
+                  follows:
+                    type: string
+    post:
+      summary: returns username, follows and followers
+      tags:
+        - "Social App"
+      responses:
+        '200':
+          description: returns an object
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    type: string
+                  followers:
+                    type: string
+                  follows:
+                    type: string
+        '404':
+          description: returns an object
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /linkedin:
+    get:
+      summary: returns username, follows and followers
+      tags:
+        - "Social App"
+      responses:
+        '200':
+          description: returns an object
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    type: string
+                  followers:
+                    type: string
+                  follows:
+                    type: string
+    post:
+      summary: returns username, follows and followers
+      tags:
+        - "Social App"
+      responses:
+        '200':
+          description: returns an object
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    type: string
+                  followers:
+                    type: string
+                  follows:
+                    type: string
+        '404':
+          description: returns an object
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /socialapp:
+    get:
+      summary: returns a greet message from lco
+      tags:
+        - "Others"
+      responses:
+        200:
+          description: returns an object
+          content:
+            application/text:
+              schema:
+                type: string
+                example: "my string"
+        400:
+           description: returns an object
+        500:
+           description: returns an object
+  /addcourse:
+    post:
+      summary: Adding a course to courses
+      tags:
+        - "Courses"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                course:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    price:
+                      type: number
+      responses:   
+        200:
+          description: returns an object
+          content:
+            application/text:
+              schema:
+                type: string
+                example: "my string"
+        400:
+           description: returns an object
+        500:
+           description: returns an object
+  /addcourseimage:
+    post:
+      summary: Adding a course image to images
+      tags:
+        - "Courses"
+      parameters:
+        - name: courseid
+          in: query
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file: 
+                  type: string
+                  format : binary
+      responses:   
+        200:
+          description: returns an object
+          content:
+            application/text:
+              schema:
+                type: string
+                example: "my string"
+        400:
+           description: returns an object
+        500:
+           description: returns an object
+
+   
+  /{token}/{token2}:
+    get:
+      summary: returns username, follows and followers
+      tags:
+        - "Others"
+      parameters: 
+        - name: token
+          default: 5
+          in: path
+          schema:
+            type: string
+        - name: token2
+          default: 5
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: returns an object
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+    
+                

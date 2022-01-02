@@ -1,7 +1,17 @@
 const express = require('express')
 const app = express()
 const formatter = require('date-format')
+const fileupload = require("express-fileupload");
 
+
+//for swagger docs
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./swagger.yaml');
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use(express.json())
+app.use(fileupload())
 const PORT = process.env.PORT || 4000
 
 app.get("/",(req,res)=>{
@@ -38,10 +48,34 @@ app.get("/api/v1/facebook",(req,res)=>{
     res.status(200).json(fbSocial)
 })
 
-app.get("/api/v1/:id/",(req,res)=>{
-    console.log(req.params.id);
-    res.status(200).send({params:req.params.id})
+app.get("/api/v1/socialapp",(req,res)=>{
+    res.status(200).send("hello from samir")
 })
+
+let courses = []
+
+app.post("/api/v1/addcourse",(req,res)=>{
+    courses.push(req.body.course);
+    res.status(200).send(true);
+})
+
+app.post("/api/v1/addcourseimage",(req,res)=>{
+    const courseId = req.query.courseid;
+
+    const file = req.files.file
+    const path = __dirname +"/images/"+courseId+".png"
+
+    file.mv(path,(err)=>{
+        res.send(true);
+    })
+})
+
+app.get("/api/v1/:id/:id2?",(req,res)=>{
+    console.log(req.params.id);
+    res.status(200).send({params:req.params})
+})
+
+
 
 app.listen(PORT,()=>{
     console.log(`Server is up and Running at ${PORT}`);
